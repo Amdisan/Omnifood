@@ -1,44 +1,42 @@
-console.log("hello Sasha");
-
 /*mobile naviation*/
 
-const btnNavEl = document.querySelector(".btn-mobile-nav");
+const btnNavEl = document.querySelector('.btn-mobile-nav');
 
-const headerEl = document.querySelector(".header");
+const headerEl = document.querySelector('.header');
 
-btnNavEl.addEventListener("click", () => {
-  headerEl.classList.toggle("nav-open");
+btnNavEl.addEventListener('click', () => {
+  headerEl.classList.toggle('nav-open');
 });
 
 /*********************************************************************/
 /*smooth scrolling*/
 const allLinks =
   document.querySelectorAll(
-    "a:link"
+    'a:link'
   ); /* ':link'  selects only 'a' tags with href attribute*/
 
 allLinks.forEach((link) =>
-  link.addEventListener("click", (event) => {
+  link.addEventListener('click', (event) => {
     event.preventDefault();
-    const href = link.getAttribute("href");
+    const href = link.getAttribute('href');
 
     //scroll back to top
-    if (href === "#") {
+    if (href === '#') {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
 
     //scroll to other links
-    if (href !== "#" && href.startsWith("#")) {
+    if (href !== '#' && href.startsWith('#')) {
       const sectionEl = document.querySelector(href);
-      sectionEl.scrollIntoView({ behavior: "smooth" });
+      sectionEl.scrollIntoView({ behavior: 'smooth' });
     }
 
     //close mobile navigation
-    if (link.classList.contains("main-nav-link")) {
-      headerEl.classList.remove("nav-open");
+    if (link.classList.contains('main-nav-link')) {
+      headerEl.classList.remove('nav-open');
     }
   })
 );
@@ -46,22 +44,22 @@ allLinks.forEach((link) =>
 /******************************************************/
 /*sticky navigation*/
 
-const sectionHero = document.querySelector(".section-hero");
+const sectionHero = document.querySelector('.section-hero');
 
 const observer = new IntersectionObserver(
   function (entries) {
     const ent = entries[0];
     if (!ent.isIntersecting) {
-      document.body.classList.add("sticky");
+      document.body.classList.add('sticky');
     }
     if (ent.isIntersecting) {
-      document.body.classList.remove("sticky");
+      document.body.classList.remove('sticky');
     }
   },
   {
     root: null, //means observe for the section in viewport
     threshold: 0,
-    rootMargin: "-80px",
+    rootMargin: '-80px',
   }
 );
 
@@ -70,20 +68,20 @@ observer.observe(sectionHero);
 ///////////////////////////////////////////////////////////
 // Fixing flexbox gap property missing in some Safari versions
 function checkFlexGap() {
-  var flex = document.createElement("div");
-  flex.style.display = "flex";
-  flex.style.flexDirection = "column";
-  flex.style.rowGap = "1px";
+  var flex = document.createElement('div');
+  flex.style.display = 'flex';
+  flex.style.flexDirection = 'column';
+  flex.style.rowGap = '1px';
 
-  flex.appendChild(document.createElement("div"));
-  flex.appendChild(document.createElement("div"));
+  flex.appendChild(document.createElement('div'));
+  flex.appendChild(document.createElement('div'));
 
   document.body.appendChild(flex);
   var isSupported = flex.scrollHeight === 1;
   flex.parentNode.removeChild(flex);
   console.log(isSupported);
 
-  if (!isSupported) document.body.classList.add("no-flexbox-gap");
+  if (!isSupported) document.body.classList.add('no-flexbox-gap');
 }
 checkFlexGap();
 
